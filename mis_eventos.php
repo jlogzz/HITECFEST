@@ -136,6 +136,16 @@
 							</a>
 						</div>
 					</div>
+					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+						<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
+							<div class="menu-icon">
+								<i class="fa fa-pencil-square-o"></i>
+							</div>
+							<a type="button" href="./editar_evento.php?id=<?= $evento->id; ?>" class="btn btn-primary btn-lg btn-block">
+								Editar Evento
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
