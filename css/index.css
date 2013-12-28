@@ -1,0 +1,84 @@
+body{
+	background: url('../img/escheresque.png') repeat;
+}
+
+.font-size-16{
+	font-size: 16px;
+}
+
+.center-text{
+	text-align: center;
+}
+
+.center{
+	display: block;
+	margin: 0 auto;
+}
+
+.login{
+	background: #ffffff;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	padding: 10px;
+	-webkit-box-shadow: 0px 0px 8px 0px #000;
+	box-shadow: 0px 0px 8px 0px #000;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"] { text-align: center; }
+
+.btn-wall{
+	margin-top: 20px;
+    padding: 20px 10px 10px 10px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.menu-icon{
+	text-align: center;
+	font-size: 70px;
+	width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+	background-color: #6AA7E8;
+}
+
+.menu-icon-edificios{
+	text-align: center;
+	font-size: 70px;
+	width: 157px;
+    height: 157px;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+	background-color: #6AA7E8;
+}
+
+.placeholder-edificio{
+	margin-top: 25px;
+}
+
+.ver-periodo{
+	font-size: 24px;
+}
+
+footer{
+	height: 24px;
+}
+
+.inline{
+	float:left;
+}
+
+.asist:hover{
+	cursor: pointer;
+}
