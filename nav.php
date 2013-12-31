@@ -16,6 +16,11 @@
 					<li id="registro"><a href="./registro.php">REGISTRO</a></li>
 					<li id="kit"><a href="./kit.php">ASIGNACION DE EQUIPO</a></li>
 					<li id="staff"><a href="./staff.php">STAFF</a></li>
+					<?php if($staff->tipo=="capitan"){ ?>
+						<li id="capitanes"><a href="./capitanes.php">CAPITANES</a></li>
+					<?php }else{ ?>
+						<li id="capitanes"><a href="./login_capitanes.php">LOGIN CAPITANES</a></li>
+					<?php } ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if($user->tipo=="admin"){ ?>
