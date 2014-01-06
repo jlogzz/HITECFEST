@@ -1,0 +1,24 @@
+PUNTOS
+  ID
+  nombre
+  porcentaje
+  tipo
+  code
+
+
+
+		$punto = R::dispense('puntos');
+		/*/
+		$punto->nombre = "Entrada - Dia 3";
+		$punto->code = "entradadia3";
+		/*/
+		$punto->nombre = "Salida - Dia 3";
+		$punto->code = "salidadia3";
+		//*/
+		$punto->porcentaje = .3;
+		$punto->tipo = "asistencia";
+
+		$eventos = R::load('eventos', 2);
+		$eventos->sharedPuntos[] = $punto;
+
+		R::store($eventos);

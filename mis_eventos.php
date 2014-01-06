@@ -20,6 +20,8 @@
 	}else{
 		if(idate("m")<=6&&idate("m")>1){
 			$fecha="Mayo-".idate("Y");
+		}else if(idate("m")==1){
+			$fecha="Enero-".(idate("Y"));
 		}else{
 			$fecha="Enero-".(idate("Y")+1);
 		}

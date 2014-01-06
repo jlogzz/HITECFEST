@@ -15,10 +15,16 @@
 		$staff->tipo = $_POST['tipo'];
 		$staff->camisa = $_POST['camisa'];
 
-		if(idate("m") <= 6 && idate("m") > 1){
-			$staff->fecha="Mayo-".idate("Y");
+		if(isset($_POST['fecha'])){
+			$fecha=$_POST['fecha'];
 		}else{
-			$staff->fecha="Enero-".(idate("Y")+1);
+			if(idate("m")<=6&&idate("m")>1){
+				$fecha="Mayo-".idate("Y");
+			}else if(idate("m")==1){
+				$fecha="Enero-".(idate("Y"));
+			}else{
+				$fecha="Enero-".(idate("Y")+1);
+			}
 		}
 
 		$asistencia = R::dispense('asistencia');

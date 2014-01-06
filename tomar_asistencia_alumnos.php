@@ -3,13 +3,14 @@
 	require 'config/config.php';
 	require 'config/sesion.php';
 
-	$title="admin";
+	$title="capitanes";
 
-	if($user->tipo == "capitan"){
-		header("location:./capitan.php");
-	}else if($user->tipo == "organizador"){
+	if($staff->tipo == "capitan"){
+
+	}else if($staff->tipo == "organizador"){
 		header("location:./organizador.php");
-	}else if($user->tipo=="admin"){
+	}else if($staff->tipo=="admin"){
+		header("location:./admin.php");
 	}else{
 		header("Location:./");
 	}
@@ -26,41 +27,60 @@
 		}
 	}
 
+	$evento = R::findOne('eventos',' fecha = :param ',
+	           array(':param' => $fecha )
+	         );
+
+	$puntos=$evento->withCondition(' tipo = ? ',
+        array("asistencia"))->sharedPuntos;
+
 	if(isset($_POST['selAsistencia'])){
 		$selAsistencia=$_POST['selAsistencia'];
-		if($selAsistencia=="capacitacion1"){$txtAsistencia="Capacitacion 1";}
-		else if($selAsistencia=="capacitacion2"){$txtAsistencia="Capacitacion 2";}
-		else if($selAsistencia=="dia1"){$txtAsistencia="Dia 1";}
-		else if($selAsistencia=="dia2"){$txtAsistencia="Dia 2";}
-		else if($selAsistencia=="dia3"){$txtAsistencia="Dia 3";}
+		foreach ($puntos as $punto) {
+			if($selAsistencia==$punto->code){$txtAsistencia=$punto->nombre;}
+		}
 	}else{
-		$selAsistencia="capacitacion1";
-		$txtAsistencia="Capacitacion 1";
+		$selAsistencia=$puntos[1]->code;
+		$txtAsistencia=$puntos[1]->nombre;
 	}
 
-	function display_staff($fecha,$selAsistencia){
+	function display_alumnos($evento, $staff, $selAsistencia){
 		
-		$staffs = R::find('staff',' fecha = :param ',
-		           array(':param' => $fecha )
+		$alumnos = R::find('alumnos',' eventos_id = :id && color = :color && edificio = :edificio',
+		           array(':id' => $evento->id, ':color' => $staff->color, ':edificio' => $staff->edificio )
 		         );
-		foreach ($staffs as $staff) {
-			$asistencia=R::load("asistencia",$staff->ownAsistencia_id);
+		foreach ($alumnos as $alumno) {
+			$asistencia = R::findOne('asistencia',' alumnos_id = :id ',
+			           array(':id' => $alumno->id )
+			         );
 			echo '
 					<tr>
-						<td class="center-text">'.$staff->tipo.'</td>
-						<td class="center-text">'.$staff->matricula.'</td>
-						<td class="center-text">'.$staff->nombre.'</td>
-						<td class="center-text">'.$staff->apaterno.'</td>
-						<td class="center-text">'.$staff->amaterno.'</td>
+						<td class="center-text">'.$alumno->matricula.'</td>
+						<td class="center-text">'.$alumno->codigo.'</td>
+						<td class="center-text">'.$alumno->nombre.'</td>
+						<td class="center-text">'.$alumno->apaterno.'</td>
+						<td class="center-text">'.$alumno->amaterno.'</td>
 						<td class="center-text">';
 						if($asistencia->$selAsistencia==1){
-							echo '<i class="fa fa-check-square-o asist" data-asist="1" data-id="'.$staff->id.'"></i>';
+							echo '<i class="fa fa-check-square-o asist" data-asist="1" data-id="'.$alumno->id.'"></i>';
 						}else{
-							echo '<i class="fa fa-square-o asist" data-asist="0" data-id="'.$staff->id.'"></i>';
+							echo '<i class="fa fa-square-o asist" data-asist="0" data-id="'.$alumno->id.'"></i>';
 						}
 						echo'</td>
 					</tr>';
 		}
+	}
+
+	function display_puntos($puntos, $selAsistencia){
+
+		foreach ($puntos as $punto) {
+			if($selAsistencia==$punto->code){
+				echo '<option selected value="'.$punto->code.'">'.$punto->nombre.'</option>';
+			}else{
+				echo '<option value="'.$punto->code.'">'.$punto->nombre.'</option>';
+			}
+		}
+
 	}
 
 ?>
@@ -90,14 +110,10 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
-					<form action="tomar_asistencia_staff.php" method="POST" class="form-inline" role="form">
+					<form action="tomar_asistencia_alumnos.php" method="POST" class="form-inline" role="form">
 						<div class="form-group">
 							<select class="selectpicker" name="selAsistencia" id="selAsistencia" required>
-							    <option <?php if($selAsistencia=='capacitacion1'){echo "selected";} ?> value="capacitacion1">Capacitacion 1</option>
-							    <option <?php if($selAsistencia=='capacitacion2'){echo "selected";} ?> value="capacitacion2">Capacitacion 2</option>
-							    <option <?php if($selAsistencia=='dia1'){echo "selected";} ?> value="dia1">Dia 1</option>
-							    <option <?php if($selAsistencia=='dia2'){echo "selected";} ?> value="dia2">Dia 2</option>
-							    <option <?php if($selAsistencia=='dia3'){echo "selected";} ?> value="dia3">Dia 3</option>
+								<?php display_puntos($puntos, $selAsistencia); ?>
 							</select>
 						</div>	
 						<button type="submit" class="btn btn-primary">Buscar</button>
@@ -119,13 +135,14 @@
 		        </div>
 		        <br />
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-1s2">
-					<h1 class="center-text">Tomar Asistencia de Staff de: <?= $fecha; ?></h1>
+					<h2 class="center-text">Tomar asistencia de Alumnos</h2>
+					<h2 class="center-text"><?= $staff->color.' - '.$staff->edificio; ?></h2>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-list-search" id="datable">
 							<thead>
 								<tr>
-									<th class="center-text">Tipo</th>
 									<th class="center-text">Matricula</th>
+									<th class="center-text">Codigo</th>
 									<th class="center-text">Nombre</th>
 									<th class="center-text">Apellido Pat.</th>
 									<th class="center-text">Apellido Mat.</th>
@@ -133,7 +150,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php display_staff($fecha, $selAsistencia); ?>
+								<?php display_alumnos($evento, $staff, $selAsistencia); ?>
 							</tbody>
 						</table>
 					</div>
@@ -207,7 +224,7 @@
 					if($(this).data('asist')==1){
 						$(this).data('asist', 0);
 						$.ajax({
-							url: 'editar_asistencia_staff.php',
+							url: 'editar_asistencia_alumnos.php',
 							type: 'POST',
 							data: {id: vid, selAsistencia: '<?php echo $selAsistencia; ?>', asist: $(this).data('asist')},
 						})
@@ -223,7 +240,7 @@
 					}else if($(this).data('asist')==0){
 						$(this).data('asist', 1);
 						$.ajax({
-							url: 'editar_asistencia_staff.php',
+							url: 'editar_asistencia_alumnos.php',
 							type: 'POST',
 							data: {id: vid, selAsistencia: '<?php echo $selAsistencia; ?>', asist: $(this).data('asist')},
 						})

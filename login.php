@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap CSS -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link href="./css/index.css" rel="stylesheet" media="screen">
 	</head>
 	<body data-active="<?= $title; ?>">
@@ -39,7 +40,7 @@
 						</div>
 						<div class="form-group">
 							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 								<input type="password" class="form-control" name="password" id="password" placeholder="**********">
 							</div>
 						</div>

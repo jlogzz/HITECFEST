@@ -28,6 +28,9 @@
 					<?php }else{ ?>
 						<li id="login"><a href="./login.php">LOGIN</a></li>
 					<?php } ?>
+					<?php if($user->tipo=="admin" || $staff->tipo=="capitan"){ ?>
+						<li id="logout"><a href="./logout.php">LOGOUT</a></li>
+					<?php } ?>
 				</ul>
 				
 				<!-- <ul class="nav navbar-nav navbar-right">

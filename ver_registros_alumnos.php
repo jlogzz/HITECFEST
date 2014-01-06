@@ -45,6 +45,8 @@
 						<td class="center-text">'.$date.'</td>
 						<td class="center-text">'.$alumno->carrera.'</td>
 						<td class="center-text">'.$registrado.'</td>
+						<td class="center-text">'.$alumno->color.'</td>
+						<td class="center-text">'.$alumno->edificio.'</td>
 					</tr>
 			';
 		}
@@ -109,6 +111,8 @@
 									<th class="center-text">Fecha</th>
 									<th class="center-text">Carrera</th>
 									<th class="center-text">Registrado</th>
+									<th class="center-text">Color</th>
+									<th class="center-text">Edificio</th>
 								</tr>
 							</thead>
 							<tbody>

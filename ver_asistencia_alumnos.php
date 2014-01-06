@@ -3,13 +3,14 @@
 	require 'config/config.php';
 	require 'config/sesion.php';
 
-	$title="admin";
+	$title="capitanes";
 
-	if($user->tipo == "capitan"){
-		header("location:./capitan.php");
-	}else if($user->tipo == "organizador"){
+	if($staff->tipo == "capitan"){
+
+	}else if($staff->tipo == "organizador"){
 		header("location:./organizador.php");
-	}else if($user->tipo=="admin"){
+	}else if($staff->tipo=="admin"){
+		header("location:./admin.php");
 	}else{
 		header("Location:./");
 	}
@@ -26,40 +27,48 @@
 		}
 	}
 
-	if(isset($_POST['selAsistencia'])){
-		$selAsistencia=$_POST['selAsistencia'];
-		if($selAsistencia=="capacitacion1"){$txtAsistencia="Capacitacion 1";}
-		else if($selAsistencia=="capacitacion2"){$txtAsistencia="Capacitacion 2";}
-		else if($selAsistencia=="dia1"){$txtAsistencia="Dia 1";}
-		else if($selAsistencia=="dia2"){$txtAsistencia="Dia 2";}
-		else if($selAsistencia=="dia3"){$txtAsistencia="Dia 3";}
-	}else{
-		$selAsistencia="capacitacion1";
-		$txtAsistencia="Capacitacion 1";
-	}
+	$evento = R::findOne('eventos',' fecha = :param ',
+	           array(':param' => $fecha )
+	         );
 
-	function display_staff($fecha,$selAsistencia){
+	function display_alumnos($evento, $staff){
 		
-		$staffs = R::find('staff',' fecha = :param ',
-		           array(':param' => $fecha )
+		$alumnos = R::find('alumnos',' eventos_id = :id && color = :color && edificio = :edificio',
+		           array(':id' => $evento->id, ':color' => $staff->color, ':edificio' => $staff->edificio )
 		         );
-		foreach ($staffs as $staff) {
-			$asistencia=R::load("asistencia",$staff->ownAsistencia_id);
+		$puntos=$evento->sharedPuntos;
+		foreach ($alumnos as $alumno) {
+			$asistencia = R::findOne('asistencia',' alumnos_id = :id ',
+			           array(':id' => $alumno->id )
+			         );
 			echo '
 					<tr>
-						<td class="center-text">'.$staff->tipo.'</td>
-						<td class="center-text">'.$staff->matricula.'</td>
-						<td class="center-text">'.$staff->nombre.'</td>
-						<td class="center-text">'.$staff->apaterno.'</td>
-						<td class="center-text">'.$staff->amaterno.'</td>
-						<td class="center-text">';
-						if($asistencia->$selAsistencia==1){
-							echo '<i class="fa fa-check-square-o asist" data-asist="1" data-id="'.$staff->id.'"></i>';
-						}else{
-							echo '<i class="fa fa-square-o asist" data-asist="0" data-id="'.$staff->id.'"></i>';
+						<td class="center-text">'.$alumno->matricula.'</td>
+						<td class="center-text">'.$alumno->codigo.'</td>
+						<td class="center-text">'.$alumno->nombre.'</td>
+						<td class="center-text">'.$alumno->apaterno.'</td>
+						<td class="center-text">'.$alumno->amaterno.'</td>';
+						foreach ($puntos as $punto) {
+							if($punto->tipo=="asistencia"){
+								$code=$punto->code;
+								if($asistencia->$code){
+									echo'<td class="center-text"><i class="fa fa-check-square-o"></i></td>';
+								}else{
+									echo'<td class="center-text"><i class="fa fa-square-o"></i></td>';
+								}
+							}
 						}
-						echo'</td>
-					</tr>';
+					echo '</tr>';
+		}
+	}
+
+	function display_puntos($evento){
+		$puntos=$evento->sharedPuntos;
+
+		foreach ($puntos as $punto) {
+			if($punto->tipo=="asistencia"){
+				echo '<th class="center-text">'.$punto->nombre.'</th>';
+			}
 		}
 	}
 
@@ -88,23 +97,6 @@
 					<?php require 'config/alerts.php'; ?>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
-					<form action="tomar_asistencia_staff.php" method="POST" class="form-inline" role="form">
-						<div class="form-group">
-							<select class="selectpicker" name="selAsistencia" id="selAsistencia" required>
-							    <option <?php if($selAsistencia=='capacitacion1'){echo "selected";} ?> value="capacitacion1">Capacitacion 1</option>
-							    <option <?php if($selAsistencia=='capacitacion2'){echo "selected";} ?> value="capacitacion2">Capacitacion 2</option>
-							    <option <?php if($selAsistencia=='dia1'){echo "selected";} ?> value="dia1">Dia 1</option>
-							    <option <?php if($selAsistencia=='dia2'){echo "selected";} ?> value="dia2">Dia 2</option>
-							    <option <?php if($selAsistencia=='dia3'){echo "selected";} ?> value="dia3">Dia 3</option>
-							</select>
-						</div>	
-						<button type="submit" class="btn btn-primary">Buscar</button>
-					</form>		
-				</div>
-			</div>
-			<br />
 			<div class="row well">
 				<div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
 		            <form action="#" method="get">
@@ -117,23 +109,32 @@
 		                </div>
 		            </form>
 		        </div>
+		        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">		                
+		                <div class="input-group">
+		                	<a class="btn btn-primary" type="button" target="new" 
+				            	href="./config/crear_excel.php?asistenciaStaff=true&reporte=AsistenciaStaff&fecha=<?= $fecha; ?>">
+				            	GENERAR EXCEL
+			            	</a>
+		                </div>
+		        </div>
 		        <br />
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-1s2">
-					<h1 class="center-text">Tomar Asistencia de Staff de: <?= $fecha; ?></h1>
+					<h2 class="center-text">Asistencia Alumnos</h2>
+					<h2 class="center-text"><?= $staff->color.' - '.$staff->edificio; ?></h2>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-list-search" id="datable">
 							<thead>
 								<tr>
-									<th class="center-text">Tipo</th>
 									<th class="center-text">Matricula</th>
+									<th class="center-text">Codigo</th>
 									<th class="center-text">Nombre</th>
 									<th class="center-text">Apellido Pat.</th>
 									<th class="center-text">Apellido Mat.</th>
-									<th class="center-text"><?= $txtAsistencia; ?></th>
+									<?php display_puntos($evento); ?>
 								</tr>
 							</thead>
 							<tbody>
-								<?php display_staff($fecha, $selAsistencia); ?>
+								<?php display_alumnos($evento, $staff); ?>
 							</tbody>
 						</table>
 					</div>
@@ -199,44 +200,6 @@
 			    });
 
 				//$('#datable').dataTable();
-
-				$(".asist").click(function(event) {
-					var vid = $(this).data('id');
-					var checkbox = $(this);
-					/* Act on the event */
-					if($(this).data('asist')==1){
-						$(this).data('asist', 0);
-						$.ajax({
-							url: 'editar_asistencia_staff.php',
-							type: 'POST',
-							data: {id: vid, selAsistencia: '<?php echo $selAsistencia; ?>', asist: $(this).data('asist')},
-						})
-						.done(function() {
-							checkbox.removeClass('fa-check-square-o');
-							checkbox.addClass('fa-square-o');
-							//alert("success - "+vid+" - "+checkbox.data('asist'));
-						})
-						.fail(function() {
-							alert("Error al tomar asistencia, verifica conexion a Internet");
-						})
-												
-					}else if($(this).data('asist')==0){
-						$(this).data('asist', 1);
-						$.ajax({
-							url: 'editar_asistencia_staff.php',
-							type: 'POST',
-							data: {id: vid, selAsistencia: '<?php echo $selAsistencia; ?>', asist: $(this).data('asist')},
-						})
-						.done(function() {
-							checkbox.removeClass('fa-square-o');
-							checkbox.addClass('fa-check-square-o');
-							//alert("success - "+vid+" - "+checkbox.data('asist'));
-						})
-						.fail(function() {
-							alert("Error al tomar asistencia, verifica conexion a Internet");
-						})
-					}
-				});
 			});
 		</script>
 	</body>

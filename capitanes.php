@@ -46,10 +46,10 @@
 				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
 					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
 						<div class="menu-icon">
-							<span class="glyphicon glyphicon-list"></span>
+							<i class="fa fa-trophy"></i>
 						</div>
-						<a type="button" href="./ver_registros_alumnos.php" class="btn btn-primary btn-lg btn-block">
-							Ver Registro de ALUMNOS
+						<a type="button" href="./ver_puntos.php" class="btn btn-primary btn-lg btn-block">
+							Ver PUNTOS
 						</a>
 					</div>
 				</div>
