@@ -43,40 +43,8 @@
 						<div class="menu-icon">
 							<span class="glyphicon glyphicon-list"></span>
 						</div>
-						<a type="button" href="./ver_registros_staff.php" class="btn btn-primary btn-lg btn-block">
-							Ver Registro de STAFF
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-clock-o"></i>
-						</div>
-						<a type="button" href="./ver_asistencia_staff.php" class="btn btn-primary btn-lg btn-block">
-							Ver Asistencia de STAFF
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<span class="glyphicon glyphicon-check"></span>
-						</div>
-						<a type="button" href="./tomar_asistencia_staff.php" class="btn btn-primary btn-lg btn-block">
-							Tomar Asistencia STAFF
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-calendar"></i>
-						</div>
-						<a type="button" href="./mis_eventos.php" class="btn btn-primary btn-lg btn-block">
-							Mis Eventos
+						<a type="button" href="./ver_actividades.php" class="btn btn-primary btn-lg btn-block">
+							Ver Actividades
 						</a>
 					</div>
 				</div>
@@ -85,8 +53,8 @@
 						<div class="menu-icon">
 							<i class="fa fa-plus-square-o"></i>
 						</div>
-						<a type="button" href="./nuevo_evento.php" class="btn btn-primary btn-lg btn-block">
-							Nuevo Evento
+						<a type="button" href="./agregar_actividades.php" class="btn btn-primary btn-lg btn-block">
+							Agregar Actividad
 						</a>
 					</div>
 				</div>
@@ -95,40 +63,8 @@
 						<div class="menu-icon">
 							<i class="fa fa-trophy"></i>
 						</div>
-						<a type="button" href="./puntos.php" class="btn btn-primary btn-lg btn-block">
-							Puntos
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-print"></i>
-						</div>
-						<a type="button" href="./generar_reportes.php" class="btn btn-primary btn-lg btn-block">
-							Generar Reportes
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-th"></i>
-						</div>
-						<a type="button" href="./editar_colores.php" class="btn btn-primary btn-lg btn-block">
-							Colores
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-building-o"></i>
-						</div>
-						<a type="button" href="./editar_edificios.php" class="btn btn-primary btn-lg btn-block">
-							Edificios
+						<a type="button" href="./ver_puntos.php" class="btn btn-primary btn-lg btn-block">
+							Ver Puntos
 						</a>
 					</div>
 				</div>

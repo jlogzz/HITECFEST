@@ -2,6 +2,18 @@
 
 	require "config/config.php";
 
+	if(isset($_POST['fecha'])){
+		$fecha=$_POST['fecha'];
+	}else{
+		if(idate("m")<=6&&idate("m")>1){
+			$fecha="Mayo-".idate("Y");
+		}else if(idate("m")==1){
+			$fecha="Enero-".(idate("Y"));
+		}else{
+			$fecha="Enero-".(idate("Y")+1);
+		}
+	}
+
 	if($_POST){
 		$staff = R::dispense('staff');
 
@@ -13,19 +25,9 @@
 		$staff->email = strtolower($_POST['email']);
 		$staff->telefono = $_POST['telefono'];
 		$staff->tipo = $_POST['tipo'];
+		$staff->fecha = $fecha;
 		$staff->camisa = $_POST['camisa'];
 
-		if(isset($_POST['fecha'])){
-			$fecha=$_POST['fecha'];
-		}else{
-			if(idate("m")<=6&&idate("m")>1){
-				$fecha="Mayo-".idate("Y");
-			}else if(idate("m")==1){
-				$fecha="Enero-".(idate("Y"));
-			}else{
-				$fecha="Enero-".(idate("Y")+1);
-			}
-		}
 
 		$asistencia = R::dispense('asistencia');
 		$asistencia->capacitacion1=false;

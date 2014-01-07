@@ -48,7 +48,7 @@
 						<div class="menu-icon">
 							<i class="fa fa-trophy"></i>
 						</div>
-						<a type="button" href="./ver_puntos.php" class="btn btn-primary btn-lg btn-block">
+						<a type="button" href="./puntos_equipo.php" class="btn btn-primary btn-lg btn-block">
 							Ver PUNTOS
 						</a>
 					</div>
