@@ -107,12 +107,12 @@
 							</button>
 						</div>
 					';
-					if ($seledificios->$seledificio==$evento->numcolores) {
-						$seledificios->seledificio=1;
+					if ($seledificios->$seledificio>=$evento->numcolores) {
+						$seledificios->$seledificio=1;
 					}else{
-						$seledificios->$seledificio=$seledificios->$seledificio+1;
+						$seledificios->$seledificio=($seledificios->$seledificio+1);
 					}
-					if($evento->seledificios==$evento->numedificios){
+					if($evento->seledificios>=$evento->numedificios){
 						$evento->seledificios=1;
 					}else{
 						$evento->seledificios=$evento->seledificios+1;
