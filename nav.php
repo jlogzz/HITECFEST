@@ -25,10 +25,14 @@
 				<ul class="nav navbar-nav navbar-right">
 					<?php if($user->tipo=="admin"){ ?>
 						<li id="admin"><a href="./admin.php">ADMIN</a></li>
+					<?php }else if($user->tipo=="ch"){ ?>
+						<li id="ch"><a href="./ch.php">CH</a></li>
+					<?php }else if($user->tipo=="contenido"){ ?>
+						<li id="contenido"><a href="./contenido.php">CONTENIDO</a></li>
 					<?php }else{ ?>
 						<li id="login"><a href="./login.php">LOGIN</a></li>
 					<?php } ?>
-					<?php if($user->tipo=="admin" || $staff->tipo=="capitan"){ ?>
+					<?php if($user->tipo=="admin" || $staff->tipo=="capitan" || $user->tipo=="ch" || $user->tipo=="contenido"){ ?>
 						<li id="logout"><a href="./logout.php">LOGOUT</a></li>
 					<?php } ?>
 				</ul>

@@ -3,13 +3,13 @@
 	require 'config/config.php';
 	require 'config/sesion.php';
 
-	$title="admin";
+	$title=$user->tipo;
 
 	if($user->tipo == "capitan"){
 		header("location:./capitan.php");
 	}else if($user->tipo == "organizador"){
 		header("location:./organizador.php");
-	}else if($user->tipo=="admin"){
+	}else if($user->tipo=="admin" || $user->tipo=="ch"){
 	}else{
 		header("Location:./");
 	}

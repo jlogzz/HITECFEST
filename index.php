@@ -4,7 +4,7 @@
 	require 'config/sesion.php';
 	$title="index";
 
-	$cdate = mktime(0, 0, 0, 1, 9, 2014);
+	$cdate = mktime(0, 0, 0, 1, 10, 2014);
 	$today = time();
 	$difference = $cdate - $today;
 	if ($difference < 0) { $difference = 0; }
@@ -36,7 +36,7 @@
 				<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8">
 					<br />
 					<br />
-					<h1 class="text-center">Faltan <?= floor($difference/60/60/24); ?> dias para HI! TEC FEST</h1>						
+					<h1 class="text-center">Faltan <?= floor($difference/60/60/24); ?> dias para HI! TEC FEST!!!</h1>						
 				</div>
 			</div>
 		</div>

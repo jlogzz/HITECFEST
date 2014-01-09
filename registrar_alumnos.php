@@ -19,6 +19,9 @@
 		$alumnos->carrera=strtoupper($_POST['carrera']);
 		$alumnos->registrado=false;
 
+		$asistencia = R::dispense('asistencia');		
+		$alumnos->ownAsistencia[]=$asistencia;
+
 		$evento->ownAlumnos[]=$alumnos;
 
 		R::store($evento);

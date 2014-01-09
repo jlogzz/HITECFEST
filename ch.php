@@ -3,16 +3,32 @@
 	require 'config/config.php';
 	require 'config/sesion.php';
 
-	$title="admin";
+	$title="ch";
 
-	if($user->tipo == "ch"){
-		header("location:./ch.php");
+	if($user->tipo == "admin"){
+		header("location:./admin.php");
 	}else if($user->tipo == "contenido"){
 		header("location:./contenido.php");
-	}else if($user->tipo=="admin"){
+	}else if($user->tipo=="ch"){
 
 	}else{
 		header("Location:./");
+	}
+
+	if(isset($_POST['id'])){
+		$evento = R::load('eventos', $_POST['id']);
+		$fecha=$evento->fecha;
+	}else{
+		if(idate("m")<=6&&idate("m")>1){
+			$fecha="Mayo-".idate("Y");
+		}else if(idate("m")==1){
+			$fecha="Enero-".(idate("Y"));
+		}else{
+			$fecha="Enero-".(idate("Y")+1);
+		}
+		$evento = R::findOne('eventos',' fecha = :param ',
+		           array(':param' => $fecha )
+		         );
 	}
 
 ?>
@@ -73,62 +89,10 @@
 				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
 					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
 						<div class="menu-icon">
-							<i class="fa fa-calendar"></i>
-						</div>
-						<a type="button" href="./mis_eventos.php" class="btn btn-primary btn-lg btn-block">
-							Mis Eventos
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-plus-square-o"></i>
-						</div>
-						<a type="button" href="./nuevo_evento.php" class="btn btn-primary btn-lg btn-block">
-							Nuevo Evento
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-trophy"></i>
-						</div>
-						<a type="button" href="./puntos.php" class="btn btn-primary btn-lg btn-block">
-							Puntos
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-print"></i>
-						</div>
-						<a type="button" href="./generar_reportes.php" class="btn btn-primary btn-lg btn-block">
-							Generar Reportes
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
 							<i class="fa fa-th"></i>
 						</div>
-						<a type="button" href="./editar_colores.php" class="btn btn-primary btn-lg btn-block">
-							Colores
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-1 col-lg-offset1 btn-wall">
-						<div class="menu-icon">
-							<i class="fa fa-building-o"></i>
-						</div>
-						<a type="button" href="./editar_edificios.php" class="btn btn-primary btn-lg btn-block">
-							Edificios
+						<a type="button" href="./asignar_capitanes.php?id=<?= $evento->id; ?>" class="btn btn-primary btn-lg btn-block">
+							Asignar Capitanes
 						</a>
 					</div>
 				</div>

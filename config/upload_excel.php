@@ -31,6 +31,8 @@
 			$alumno->registrado=false;
 			$alumno->edificio;
 			$alumno->color;
+			$asistencia = R::dispense('asistencia');		
+			$alumno->ownAsistencia[]=$asistencia;
 			R::store($alumno);
 			$evento->ownAlumnos[]=$alumno;
 		}
