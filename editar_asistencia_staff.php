@@ -4,7 +4,8 @@
 	require 'config/sesion.php';
 
 	if(isset($_POST)){
-		$asistencia = R::load('asistencia', $_POST['id']);
+		$staff = R::load('staff', $_POST['id']);
+		$asistencia = R::load('asistencia', $staff->ownAsistencia_id);
 
 		$asistencia->$_POST['selAsistencia']=$_POST['asist'];
 

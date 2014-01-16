@@ -38,6 +38,7 @@
 			# code...
 			echo '
 					<tr>
+						<td class="center-text">'.$alumno->codigo.'</td>
 						<td class="center-text">'.$alumno->nombre.'</td>
 						<td class="center-text">'.$alumno->apaterno.'</td>
 						<td class="center-text">'.$alumno->amaterno.'</td>
@@ -104,6 +105,7 @@
 						<table class="table table-bordered table-striped table-list-search" id="datable">
 							<thead>
 								<tr>
+									<th class="center-text">Codigo</th>
 									<th class="center-text">Nombre</th>
 									<th class="center-text">Apellido Pat</th>
 									<th class="center-text">Apellido Mat</th>

@@ -26,7 +26,9 @@
 			$alumno->apaterno=$data->sheets[0]['cells'][$i][2];
 			$alumno->amaterno=$data->sheets[0]['cells'][$i][3];
 			$alumno->matricula=$data->sheets[0]['cells'][$i][4];
-			$alumno->fecha=$data->sheets[0]['cells'][$i][5];
+			$alumno->fecha=date("d-M-Y",($data->sheets[0]['cells'][$i][5]-25570)*86400); 
+			//EXCEL SERIAL
+			//date("d-M-Y",($data->sheets[0]['cells'][$i][5]-25570)*86400-1); 
 			$alumno->carrera=$data->sheets[0]['cells'][$i][6];
 			$alumno->registrado=false;
 			$alumno->edificio;
@@ -38,7 +40,7 @@
 		}
 		R::store($evento);
 		
-		echo "<script>window.close();</script>";
+		//echo "<script>window.close();</script>";
 	} else {
 	    echo "Possible file upload attack!\n";
 	}
